@@ -1,4 +1,4 @@
-package com.example.angelaheely.presentation
+package com.example.angelaheely.presentation.landing
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -30,7 +31,7 @@ fun LandingScreen(
 ) {
 
     LaunchedEffect(key1 = Unit) {
-        delay(2000)
+        delay(1500)
         if (viewModel.user.value == null) {
             navigateToLoginScreen.invoke()
         } else {
@@ -51,11 +52,15 @@ fun LandingScreen(
             contentDescription = "Landing Page Image",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp),
+                .height(140.dp),
             contentScale = ContentScale.Crop
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Welcome to Our App!", style = MaterialTheme.typography.h4)
+        Text(
+            text = "Welcome to Our App!",
+            style = MaterialTheme.typography.h4,
+            color = Color.White
+        )
 
     }
 

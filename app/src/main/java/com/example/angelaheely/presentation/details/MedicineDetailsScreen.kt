@@ -15,16 +15,34 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.angelaheely.domain.model.Drug
 import com.example.angelaheely.presentation.login.MainViewModel
 
 @Composable
 fun MedicineDetailsScreen(
     onClickBack: () -> Unit,
-    viewModel: MainViewModel
+    viewModel: MainViewModel,
+    medicineNam: String,
 ) {
+
+    var drug by remember {
+        mutableStateOf(Drug())
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.screenState.item?.drugs?.find { it.name == medicineNam }?.let {
+            drug = it
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -47,9 +65,11 @@ fun MedicineDetailsScreen(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
-            Text(text = "Name: {medicine.name}", style = MaterialTheme.typography.h4)
+            Text(text = "Name: ${drug.name}", style = MaterialTheme.typography.h4)
             Spacer(modifier = Modifier.height(16.dp))
-            Text(text = "Dosage: {medicine.dosage}", style = MaterialTheme.typography.body1)
+            Text(text = "Dose: ${drug.dose}", style = MaterialTheme.typography.body1)
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "Strength: ${drug.strength}", style = MaterialTheme.typography.body1)
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "Description: {medicine.description}",

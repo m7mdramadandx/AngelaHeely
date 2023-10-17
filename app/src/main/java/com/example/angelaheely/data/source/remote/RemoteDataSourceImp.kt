@@ -2,7 +2,7 @@ package com.example.angelaheely.data.source.remote
 
 import com.example.angelaheely.BuildConfig
 import com.example.angelaheely.data.source.api.ApiService
-import com.example.angelaheely.domain.model.Response
+import com.example.angelaheely.domain.model.DrugsResponse
 import com.example.angelaheely.utils.DataState
 import com.example.angelaheely.utils.handleException
 import com.example.angelaheely.utils.handleResponse
@@ -18,7 +18,7 @@ class RemoteDataSourceImp @Inject constructor(
     private val okHttpClient: OkHttpClient
 ) : RemoteDataSource {
 
-    override suspend fun getMedicines(): DataState<Response> =
+    override suspend fun getMedicines(): DataState<DrugsResponse> =
         withContext(Dispatchers.IO) {
             try {
                 val response =

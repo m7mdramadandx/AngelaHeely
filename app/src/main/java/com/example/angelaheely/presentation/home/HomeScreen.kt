@@ -1,8 +1,7 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package com.example.angelaheely.presentation.home
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,12 +15,11 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.angelaheely.presentation.login.MainViewModel
 import com.example.angelaheely.utils.isFailureState
 import com.example.angelaheely.utils.isLoadingState
@@ -29,13 +27,10 @@ import com.example.angelaheely.utils.isSuccessDataState
 
 @Composable
 fun HomeScreen(
-    onClickMedicine: (medicineId: Int) -> Unit,
+    onClickMedicine: (medicineName: String) -> Unit,
     viewModel: MainViewModel
 ) {
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.getUser()
-    }
 
     val user = viewModel.user
     val screenState = viewModel.screenState
@@ -47,18 +42,22 @@ fun HomeScreen(
             )
         }
     ) { padding ->
+        Column {
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
 
-            Text(text = "Welcome " + user.value?.username.toString() + " " + viewModel.getCurrentTime())
+            Text(
+                text = "Welcome " + user.value?.username.toString() + "\nTime:" + viewModel.getCurrentTime(),
+                modifier = Modifier
+                    .padding(20.dp)
+                    .fillMaxWidth(),
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
+            )
 
-            LazyColumn() {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
                 when {
                     isLoadingState(screenState) -> {
                         // Show a loading indicator
@@ -75,7 +74,7 @@ fun HomeScreen(
                         item {
                             // Show an error message
                             Text(
-                                text = "Failed to load data",
+                                text = screenState.error,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(16.dp),
@@ -86,13 +85,39 @@ fun HomeScreen(
                     }
 
                     isSuccessDataState(screenState) -> {
-                        screenState.item?.problems?.let {
+                        screenState.item?.drugs?.let {
 
                             itemsIndexed(it) { index, item ->
-                                Card(onClick = {
-                                    onClickMedicine.invoke(item.describeContents())
-                                }) {
+                                Card(
+                                    modifier = Modifier
+                                        .padding(vertical = 8.dp, horizontal = 16.dp)
+                                        .fillMaxWidth(),
+                                    onClick = {
+                                        item.name?.let { it1 ->
+                                            onClickMedicine.invoke(it1)
+                                        }
+                                    }) {
 
+                                    item.name?.let { it1 ->
+                                        Text(
+                                            text = "Drug Name:" + it1,
+                                            modifier = Modifier.padding(8.dp)
+                                        )
+                                    }
+
+                                    item.dose?.let { it1 ->
+                                        Text(
+                                            text = "Drug dose:" + it1,
+                                            modifier = Modifier.padding(8.dp)
+                                        )
+                                    }
+
+                                    item.strength?.let { it1 ->
+                                        Text(
+                                            text = "Drug strength:" + it1,
+                                            modifier = Modifier.padding(8.dp)
+                                        )
+                                    }
 
                                 }
                             }

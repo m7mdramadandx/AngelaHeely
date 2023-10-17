@@ -15,8 +15,5 @@ fun isLoadingMoreState(screenState: ScreenState<out Parcelable?>) =
     screenState.isLoading && screenState.items.isNullOrEmpty().not()
 
 fun <T> isSuccessDataState(screenState: ScreenState<T>) =
-    !screenState.isLoading && screenState.items.isNullOrEmpty().not()
-
-fun isSuccessDataStateForObject(screenState: ScreenState<out Parcelable?>) =
     !screenState.isLoading && screenState.item != null
 

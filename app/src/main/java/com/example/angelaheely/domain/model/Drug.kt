@@ -7,6 +7,8 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class Medication(
-    @SerializedName("medicationsClasses") val medicationsClasses: List<MedicationsClasse>?
+data class Drug(
+    @SerializedName("dose") val dose: String? = "",
+    @SerializedName("name") val name: String? = "",
+    @SerializedName("strength") val strength: String? = ""
 ) : Parcelable
