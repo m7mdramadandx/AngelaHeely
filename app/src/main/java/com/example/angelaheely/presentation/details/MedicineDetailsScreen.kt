@@ -70,11 +70,7 @@ fun MedicineDetailsScreen(
             Text(text = "Dose: ${drug.dose}", style = MaterialTheme.typography.body1)
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = "Strength: ${drug.strength}", style = MaterialTheme.typography.body1)
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Description: {medicine.description}",
-                style = MaterialTheme.typography.body1
-            )
+
         }
     }
 }

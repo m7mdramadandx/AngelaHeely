@@ -100,21 +100,21 @@ fun HomeScreen(
 
                                     item.name?.let { it1 ->
                                         Text(
-                                            text = "Drug Name:" + it1,
+                                            text = "Drug Name: " + it1,
                                             modifier = Modifier.padding(8.dp)
                                         )
                                     }
 
                                     item.dose?.let { it1 ->
                                         Text(
-                                            text = "Drug dose:" + it1,
+                                            text = "Drug dose: " + it1,
                                             modifier = Modifier.padding(8.dp)
                                         )
                                     }
 
                                     item.strength?.let { it1 ->
                                         Text(
-                                            text = "Drug strength:" + it1,
+                                            text = "Drug strength: " + it1,
                                             modifier = Modifier.padding(8.dp)
                                         )
                                     }
